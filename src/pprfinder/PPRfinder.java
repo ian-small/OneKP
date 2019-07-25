@@ -6,10 +6,12 @@ package pprfinder;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.StringTokenizer;
 
 /**
  *
@@ -25,8 +27,6 @@ public class PPRfinder {
      * @param args the command line arguments
      * args[0] protein sequence file (fasta)
      * args[1] --domtout table from HMMER3.2
-     * args[2] tab separated file of valid/invalid motif combinations
-     * args[3] tab separated file of valid/invalid motif combinations ignoring gaps
      */
     public static void main(String[] args) {
         
@@ -95,18 +95,16 @@ public class PPRfinder {
             reader.close();
             
             //read valid motif combinations
-            System.out.println("reading motif combinations from " + args[2]);
-            
-            reader = new BufferedReader(new FileReader(args[2]));
+            InputStream is = PPRfinder.class.getClassLoader().getResourceAsStream("resources/motif_combinations.txt");
+            reader = new BufferedReader(new InputStreamReader(is));
             while ( (s=reader.readLine()) != null) {
                 fields = s.split("\t");
                 Motif_Combinations.put(fields[0], fields[1].equals("1") ? Boolean.TRUE:Boolean.FALSE);
             }
             reader.close();
-            
-            System.out.println("reading gapless motif combinations from " + args[3]);
-            
-            reader = new BufferedReader(new FileReader(args[3]));
+                        
+            is = PPRfinder.class.getClassLoader().getResourceAsStream("resources/gapless_motif_combinations.txt");
+            reader = new BufferedReader(new InputStreamReader(is));
             while ( (s=reader.readLine()) != null) {
                 fields = s.split("\t");
                 Gapless_Motif_Combinations.put(fields[0], fields[1].equals("1") ? Boolean.TRUE:Boolean.FALSE);
