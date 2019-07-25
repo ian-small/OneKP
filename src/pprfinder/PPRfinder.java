@@ -31,6 +31,16 @@ public class PPRfinder {
     
     public static void main(String[] args) {
         
+        //check arguments
+        if (args.length != 2 || !(new File(args[0]).exists()) || !(new File(args[1]).exists())){
+            System.out.println("Program: PPRfinder (for characterising PPR motifs in proteins)");
+            System.out.println("Version: 1.0");
+            System.out.println("Usage: java -jar PPRfinder.jar <orfs.fasta> <orfs.domt>");
+            System.out.println("<orfs.fasta>: fasta file of protein sequences");
+            System.out.println("<orfs.domt>: domain table output from running hmmsearch on <orfs.fasta> with PPR HMMs");
+            System.exit(0);
+        }
+        
         try {
             //read --domtout table
             System.out.println("reading " + args[1]);
