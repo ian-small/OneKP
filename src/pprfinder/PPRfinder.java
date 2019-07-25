@@ -28,9 +28,8 @@ public class PPRfinder {
      * args[0] protein sequence file (fasta)
      * args[1] --domtout table from HMMER3.2
      */
+    
     public static void main(String[] args) {
-        
-        
         
         try {
             //read --domtout table
@@ -115,8 +114,6 @@ public class PPRfinder {
             BufferedWriter motif_writer = new BufferedWriter(new FileWriter(args[1]+"_motifs.txt"));
             BufferedWriter orf_writer = new BufferedWriter(new FileWriter(args[1]+"_pprs.fa"));
             BufferedWriter beads_writer = new BufferedWriter(new FileWriter(args[1]+"_beads.txt"));
-            Blosum62 blosum = new Blosum62();
-            //blosum.random_associations();
             
             String beads;
             double score;

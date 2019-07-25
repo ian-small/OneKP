@@ -31,16 +31,10 @@ public class ORF {
     
     public void addMotif(Motif m) {
         
-        // filter to ignore DYW variants
-        
-        //if (m.type.equals("K123")) return;
-        //if (m.type.equals("WW")) return;
-        
         //bitscore filter
         
         if (m.type.equals("DYW") && m.score < 30) m.hidden = true;
         else if (m.type.equals("KPAKA") && m.score < 30) m.hidden = true;
-        //else if (m.type.equals("DYW:PGWW") && m.score < 90) m.hidden = true;
         else if (m.type.equals("SS") && m.score < 10) m.hidden = true;
         else if (m.score < 0) m.hidden = true;
         

@@ -176,13 +176,6 @@ public class Motif {
                 else {
                     return "DYW:KP";
                 }
-            /*case "DYW:PGWW":
-                if (hmm_end < 133) {
-                    return "E+";
-                }
-                else {
-                    return "DYW:PGWW";
-                }*/
             default:
                 return type;
         }

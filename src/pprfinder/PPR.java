@@ -325,53 +325,5 @@ public class PPR {
     
     }
     
-    public void writeAlignments(BufferedWriter motif_writer, String motif_type, int max_motif_length) throws IOException {
-        int hmmer_postgap_extension;
-        
-        String_of_Beads sob = best_sob;
-        
-        for (Motif m : sob.getMotifs()) {
-            try {
-            if (m.hmmer_alignment != null && m.inferred_start <= m.alignment_start && m.getType().equals(motif_type)) {
-                motif_writer.write(">");
-                motif_writer.write(id);
-                motif_writer.write("/");
-                motif_writer.write(String.valueOf(m.inferred_start));
-                motif_writer.write("-");
-                motif_writer.write(String.valueOf(m.inferred_end));
-                motif_writer.newLine();
-                
-                motif_writer.write(sequence.substring(m.inferred_start-1, m.alignment_start-1));
-                
-                // write N-ter gaps (if any...)
-                for (int n = m.get_N_extension()+1; n < m.hmm_start; n++) {
-                    motif_writer.write(".");
-                }
-                
-                //write hmmer alignment until 2nd loop gap site at position 29
-                hmmer_postgap_extension = m.hmm_end - 29;
-                if (hmmer_postgap_extension > 0) {
-                    motif_writer.write(m.hmmer_alignment.substring(0,m.hmmer_alignment.length()-hmmer_postgap_extension-1));
-                }
-                else {
-                    motif_writer.write(m.hmmer_alignment);
-                }
-                
-                for (int n = m.get_C_extension()+m.hmm_end; n < max_motif_length; n++) {
-                    motif_writer.write(".");
-                }
-                
-                if (hmmer_postgap_extension > 0) {
-                    motif_writer.write(m.hmmer_alignment.substring(m.hmmer_alignment.length()-hmmer_postgap_extension-1));
-                }
-                motif_writer.write(sequence.substring(m.alignment_end, m.inferred_end));
-                motif_writer.newLine();
-            }
-            } catch (java.lang.StringIndexOutOfBoundsException e) {
-                //ignore
-            }
-        }
-    }
-               
 }
 
